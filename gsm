@@ -1,287 +1,239 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ATTENDANCE SHEET</title>
-  <!-- DataTables CSS -->
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
-  <!-- Buttons CSS -->
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
-  <!-- Font Awesome for Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    /* Custom Styling */
-    body {
-      font-family: Courier New, Monospace;
-      margin: 0;
-      padding: 20px;
-      background-color: #FFFFFF; /* White background */
-      color: #3E2723; /* Dark brown text */
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-      position: relative; /* For positioning social buttons */
-    }
-    h1 {
-      color: #892d33; /* Red heading */
-      margin-bottom: 20px;
-    }
-    #myTable {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 20px;
-      background-color: white; /* White table background */
-      color: #3d2622; /* Dark brown text */
-    }
-    #myTable th, #myTable td {
-      border: 1px solid #ddd;
-      padding: 12px;
-      text-align: left;
-    }
-    #myTable th {
-      background-color: #f2b63e; /* Yellow header */
-      color: #3E2723; /* Dark brown text */
-      font-weight: bold;
-    }
-    #myTable tr:nth-child(even) {
-      background-color: #f2f2f2; /* Light gray for even rows */
-    }
-    #myTable tr:hover {
-      background-color: #ddd; /* Darker gray on hover */
-    }
-    .dataTables_wrapper .dataTables_filter input {
-      padding: 5px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      background-color: white;
-      color: #3E2723;
-    }
-    .dataTables_wrapper .dataTables_length select {
-      padding: 5px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      background-color: white;
-      color: #3E2723;
-    }
-    .dt-buttons button {
-      margin: 5px;
-      padding: 5px 10px;
-      border: none;
-      border-radius: 4px;
-      background-color: #f2b63e; /* Yellow buttons */
-      color: #3d2622; /* Dark brown text */
-      cursor: pointer;
-    }
-    .dt-buttons button:hover {
-      background-color: #FFC107; /* Darker yellow on hover */
-    }
-    /* Refresh Button */
-    .refresh-button {
-      margin-top: 20px;
-      background-color: #FFD54F; /* Yellow button */
-      color: #3E2723; /* Dark brown text */
-      border: none;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      font-size: 24px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    .refresh-button:hover {
-      background-color: #FFC107; /* Darker yellow on hover */
-    }
-    /* Social Media Buttons and Call Button */
-    .social-buttons {
-      position: fixed; /* Fixed position */
-      top: 50%; /* Center vertically */
-      right: 20px; /* Position on the right side */
-      transform: translateY(-50%); /* Center alignment */
-      display: flex;
-      flex-direction: column; /* Stack buttons vertically */
-      gap: 10px; /* Space between buttons */
-    }
-    /* Call Button */
-    .call-button {
-      background-color: #FFD54F; /* Yellow button */
-      color: #3E2723; /* Dark brown text */
-      border: none;
-      border-radius: 50%;
-      width: 40px; /* Same size as social buttons */
-      height: 40px; /* Same size as social buttons */
-      font-size: 24px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      transition: background-color 0.3s, color 0.3s; /* Smooth transition */
-    }
-    .call-button:hover {
-      background-color: #FFC107; /* Darker yellow on hover */
-    }
-    /* Social Media Buttons */
-    .social-buttons a {
-      text-decoration: none;
-      color: white;
-      background-color: #8f2634; /* Dark red background */
-      padding: 10px;
-      border-radius: 50%;
-      width: 20px; /* Same size as call button */
-      height: 20px; /* Same size as call button */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      transition: background-color 0.3s, color 0.3s; /* Smooth transition */
-    }
-    .social-buttons a:hover {
-      background-color: #FFD54F; /* Yellow on hover */
-      color: #3E2723; /* Dark brown text */
-    }
-    /* Adjust social media icons to match the size */
-    .social-buttons a i {
-      font-size: 24px; /* Same size as call button icon */
-    }
-    footer {
-      margin-top: auto;
-      text-align: center;
-      padding: 10px;
-      background-color: #8f2634; /* Dark red footer */
-      color: white;
-      font-size: 10px;
-      font-weight: bold;
-      border-radius: 5px;
-      width: 100%;
-    }
-    footer a {
-      color: #FFD54F; /* Yellow link */
-      text-decoration: none;
-    }
-    footer a:hover {
-      text-decoration: underline;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spreadsheet Data Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #333;
+        }
+        .filter-section {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .filter-group {
+            margin-bottom: 10px;
+        }
+        label {
+            display: inline-block;
+            width: 80px;
+            font-weight: bold;
+        }
+        select, input {
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+        button {
+            padding: 5px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            position: sticky;
+            top: 0;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+            font-style: italic;
+            color: #666;
+        }
+    </style>
 </head>
 <body>
-
-  <h1>V/POOVARASANKULAM M.V / A.VIEWER</h1>
-  <table id="myTable" class="display">
-    <thead>
-      <tr>
-        <th>No.</th> <!-- Row number column -->
-        <th>STAFF_ID</th>
-        <th>TIME_IN</th>
-        <th>TIME_OUT</th>
-        <th>IN_DATE</th>
-        <th>NAME</th>
-        <th>OUT_DATE</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Data will be populated dynamically -->
-    </tbody>
-  </table>
-
-  <!-- Refresh Button -->
-  <button class="refresh-button" onclick="fetchData()">
-    <i class="fas fa-sync-alt"></i> <!-- Font Awesome refresh icon -->
-  </button>
-
-  <!-- Social Media Buttons and Call Button -->
-  <div class="social-buttons">
-    <!-- Call Button -->
-    <button class="call-button" onclick="window.location.href='tel:0770777149';">
-      <i class="fas fa-phone"></i> <!-- Font Awesome phone icon -->
-    </button>
-
-    <!-- Social Media Buttons -->
-    <a href="https://www.facebook.com/sharer/sharer.php?u=YOUR_URL" target="_blank">
-      <i class="fab fa-facebook-f"></i> <!-- Facebook icon -->
-    </a>
-    <a href="https://www.instagram.com" target="_blank">
-      <i class="fab fa-instagram"></i> <!-- Instagram icon -->
-    </a>
-    <a href="https://api.whatsapp.com/send?text=Check%20this%20out:%20YOUR_URL" target="_blank">
-      <i class="fab fa-whatsapp"></i> <!-- WhatsApp icon -->
-    </a>
-    <a href="viber://forward?text=Check%20this%20out:%20YOUR_URL" target="_blank">
-      <i class="fab fa-viber"></i> <!-- Viber icon -->
-    </a>
-  </div>
-
-  <!-- Footer -->
-  <footer>
-    DEVELOPED BY C.M.S © 2025
-  </footer>
-
-  <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <!-- DataTables JS -->
-  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-  <!-- Buttons JS -->
-  <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
-  <!-- JSZip for Excel Export -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
-  <!-- PDFMake for PDF Export -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-  <!-- Buttons HTML5 Export -->
-  <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
-  <!-- Buttons Print -->
-  <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
-
-  <script>
-    $(document).ready(function() {
-      // URL of the published Google Sheets CSV
-      const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR11Q_KFibWZ8wRYg-PygQ0rOcAHRrgGyTNRaIebLNq8Dy28hewpjQu3e_8zAa9CJK92VK8mCTZrYOV/pub?gid=0&single=true&output=csv';
-
-      // Function to fetch and update table data
-      function fetchData() {
-        fetch(csvUrl)
-          .then(response => response.text())
-          .then(data => {
-            const rows = data.split('\n'); // Split CSV into rows
-            const tableBody = $('#myTable tbody');
-            tableBody.empty(); // Clear existing rows
-
-            // Loop through rows and populate the table
-            rows.forEach((row, index) => {
-              if (index === 0) return; // Skip header row
-              const columns = row.split(','); // Split row into columns
-              const tr = $('<tr>');
-              tr.append(`<td>${index}</td>`); // Add row number
-              columns.forEach(column => {
-                tr.append(`<td>${column}</td>`); // Add columns
-              });
-              tableBody.append(tr);
+    <h1>EXAM DUTY</h1>
+    
+    <div class="filter-section">
+        <div class="filter-group">
+            <label for="nameFilter">Name:</label>
+            <input type="text" id="nameFilter" placeholder="Example name...">
+        </div>
+        <div class="filter-group">
+            <label for="dateFilter">Date:</label>
+            <input type="text" id="dateFilter" placeholder="Example 7/21/2025...">
+        </div>
+        <div class="filter-group">
+            <label for="classFilter">Class:</label>
+            <select id="classFilter">
+                <option value="">All Classes</option>
+                <!-- Class options will be populated by JavaScript -->
+            </select>
+        </div>
+        <button id="applyFilters">Apply Filters</button>
+        <button id="resetFilters">Reset</button>
+    </div>
+    
+    <div id="loading" class="loading">Loading data from spreadsheet...</div>
+    
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Class</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            <!-- Data will be populated by JavaScript -->
+        </tbody>
+    </table>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const spreadsheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQfFycq5TQ6SP8VTZoo3g7U2mHVunS2S64-7Yideh2_5hBn5k-3w-vm5kxFXxWBOMibL6RQuBw3eWME/pub?output=csv';
+            let allData = [];
+            
+            // Fetch CSV data from Google Spreadsheet
+            fetch(spreadsheetUrl)
+                .then(response => response.text())
+                .then(csvData => {
+                    // Parse CSV data
+                    const rows = csvData.split('\n');
+                    const headers = rows[0].split(',');
+                    
+                    // Process each row (skip header row)
+                    allData = rows.slice(1).map(row => {
+                        const values = row.split(',');
+                        return {
+                            name: values[0] ? values[0].trim() : '',
+                            date: values[1] ? values[1].trim() : '',
+                            class: values[2] ? values[2].trim() : ''
+                        };
+                    });
+                    
+                    // Populate class filter dropdown
+                    populateClassFilter(allData);
+                    
+                    // Display all data initially
+                    renderTable(allData);
+                    
+                    // Hide loading message
+                    document.getElementById('loading').style.display = 'none';
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                    document.getElementById('loading').textContent = 'Error loading data. Please try again later.';
+                });
+            
+            // Set up filter event listeners
+            document.getElementById('applyFilters').addEventListener('click', applyFilters);
+            document.getElementById('resetFilters').addEventListener('click', resetFilters);
+            
+            // Also apply filters when pressing Enter in input fields
+            document.getElementById('nameFilter').addEventListener('keyup', function(e) {
+                if (e.key === 'Enter') applyFilters();
             });
-
-            // Reinitialize DataTable (destroy and recreate)
-            if ($.fn.DataTable.isDataTable('#myTable')) {
-              $('#myTable').DataTable().destroy();
+            
+            document.getElementById('dateFilter').addEventListener('keyup', function(e) {
+                if (e.key === 'Enter') applyFilters();
+            });
+            
+            // Function to populate class filter dropdown
+            function populateClassFilter(data) {
+                const classFilter = document.getElementById('classFilter');
+                const classes = [...new Set(data.map(item => item.class))].filter(c => c);
+                
+                classes.sort();
+                
+                classes.forEach(cls => {
+                    const option = document.createElement('option');
+                    option.value = cls;
+                    option.textContent = cls;
+                    classFilter.appendChild(option);
+                });
             }
-            $('#myTable').DataTable({
-              paging: true, // Enable pagination
-              pageLength: 10, // Default number of rows per page
-              lengthMenu: [[10, 20, 40, 80, 100], [10, 20, 40, 80, 100]], // Rows per page options
-              dom: 'Bfrtip', // Add buttons to the DOM
-              buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print' // Export buttons
-              ],
-            });
-          })
-          .catch(error => console.error('Error fetching data:', error));
-      }
-
-      // Fetch data initially
-      fetchData();
-    });
-  </script>
+            
+            // Function to apply filters
+            function applyFilters() {
+                const nameFilter = document.getElementById('nameFilter').value.toLowerCase();
+                const dateFilter = document.getElementById('dateFilter').value.toLowerCase();
+                const classFilter = document.getElementById('classFilter').value;
+                
+                const filteredData = allData.filter(item => {
+                    const nameMatch = item.name.toLowerCase().includes(nameFilter);
+                    const dateMatch = item.date.toLowerCase().includes(dateFilter);
+                    const classMatch = classFilter === '' || item.class === classFilter;
+                    
+                    return nameMatch && dateMatch && classMatch;
+                });
+                
+                renderTable(filteredData);
+            }
+            
+            // Function to reset all filters
+            function resetFilters() {
+                document.getElementById('nameFilter').value = '';
+                document.getElementById('dateFilter').value = '';
+                document.getElementById('classFilter').value = '';
+                renderTable(allData);
+            }
+            
+            // Function to render the table with data
+            function renderTable(data) {
+                const tableBody = document.getElementById('tableBody');
+                tableBody.innerHTML = '';
+                
+                if (data.length === 0) {
+                    const row = document.createElement('tr');
+                    const cell = document.createElement('td');
+                    cell.colSpan = 3;
+                    cell.textContent = 'No data found matching your filters';
+                    row.appendChild(cell);
+                    tableBody.appendChild(row);
+                    return;
+                }
+                
+                data.forEach(item => {
+                    const row = document.createElement('tr');
+                    
+                    const nameCell = document.createElement('td');
+                    nameCell.textContent = item.name;
+                    row.appendChild(nameCell);
+                    
+                    const dateCell = document.createElement('td');
+                    dateCell.textContent = item.date;
+                    row.appendChild(dateCell);
+                    
+                    const classCell = document.createElement('td');
+                    classCell.textContent = item.class;
+                    row.appendChild(classCell);
+                    
+                    tableBody.appendChild(row);
+                });
+            }
+        });
+    </script>
 </body>
 </html>
